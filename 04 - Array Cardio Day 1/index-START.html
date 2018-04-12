@@ -56,7 +56,11 @@
     const namesContainDe = boulvNames.filter(boulv => boulv.includes('de'));
     // 7. sort Exercise
     // Sort the people alphabetically by last name
-
+    const sortedPeople = people.sort((people1, people2) => {
+      const parts1 = people1.split(', ');
+      const parts2 = people2.split(', ');
+      return parts1[1] > parts2[1] ? 1 : -1;
+    });
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
