@@ -32,6 +32,8 @@ const finder = (wordToFind, dataArray) =>
 const input = document.querySelector('.search');
 const list = document.querySelector('.suggestions');
 
+const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
 const display = e => {
   const result = finder(e.target.value, cities);
   const html = result.map(elem => {
@@ -41,7 +43,7 @@ const display = e => {
     return `
     <li>
       <span class='name'>${city}, ${state}</span>
-      <span class='population'>${elem.population}</span>
+      <span class='population'>${numberWithCommas(elem.population)}</span>
     </li>
   `}).join('');
   list.innerHTML = html;
