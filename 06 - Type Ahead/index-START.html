@@ -22,7 +22,13 @@ const cities = []
 fetch(endpoint)
   .then(blob => blob.json())
   .then(data => cities.push(...data));
-  
+
+const finder = (wordToFind, dataArray) => 
+  dataArray.filter(elem => {
+    const regex = new RegExp(wordToFind, 'gi');
+    return elem.city.match(regex);
+  });
+
 </script>
   </body>
 </html>
