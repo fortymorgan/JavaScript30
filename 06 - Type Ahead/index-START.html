@@ -26,8 +26,17 @@ fetch(endpoint)
 const finder = (wordToFind, dataArray) => 
   dataArray.filter(elem => {
     const regex = new RegExp(wordToFind, 'gi');
-    return elem.city.match(regex);
+    return elem.city.match(regex) || elem.state.match(regex);
   });
+
+const input = document.querySelector('.search');
+
+const display = e => {
+  result = finder(e.target.value, cities);
+  console.log(result);
+};
+
+input.addEventListener('keyup', display);
 
 </script>
   </body>
