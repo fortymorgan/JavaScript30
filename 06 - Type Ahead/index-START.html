@@ -30,10 +30,21 @@ const finder = (wordToFind, dataArray) =>
   });
 
 const input = document.querySelector('.search');
+const list = document.querySelector('.suggestions');
 
 const display = e => {
-  result = finder(e.target.value, cities);
-  console.log(result);
+  const result = finder(e.target.value, cities);
+  const html = result.map(elem => {
+    const regex = new RegExp(e.target.value, 'gi');
+    const city = elem.city.replace(regex, `<span class='hl'>${e.target.value}</span>`)
+    const state = elem.state.replace(regex, `<span class='hl'>${e.target.value}</span>`)
+    return `
+    <li>
+      <span class='name'>${city}, ${state}</span>
+      <span class='population'>${elem.population}</span>
+    </li>
+  `}).join('');
+  list.innerHTML = html;
 };
 
 input.addEventListener('keyup', display);
