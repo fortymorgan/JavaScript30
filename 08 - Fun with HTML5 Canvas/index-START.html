@@ -12,6 +12,20 @@
 
   canvas.width = window.innerWidth;
   canvas.heigth = window.innerHeight;
+
+  let isDrawing = false;
+
+  canvas.addEventListener('mousemove', e => {
+    if (!isDrawing) {
+      return;
+    }
+
+    console.log(e);
+  });
+
+  canvas.addEventListener('mousedown', () => isDrawing = true);
+  canvas.addEventListener('mouseup', () => isDrawing = false);
+  canvas.addEventListener('mouseout', () => isDrawing = false);
 </script>
 
 <style>
