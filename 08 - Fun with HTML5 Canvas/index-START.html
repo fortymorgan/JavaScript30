@@ -22,10 +22,14 @@
   let lastX = 0;
   let lastY = 0;
 
+  let hue = 0;
+
   canvas.addEventListener('mousemove', e => {
     if (!isDrawing) {
       return;
     }
+
+    context.strokeStyle = `hsl(${hue}, 100%, 50%)`
     
     context.beginPath();
     context.moveTo(lastX, lastY);
@@ -33,6 +37,8 @@
     context.stroke();
 
     [lastX, lastY] = [e.offsetX, e.offsetY];
+
+    hue += 1;
   });
 
   canvas.addEventListener('mousedown', e => {
