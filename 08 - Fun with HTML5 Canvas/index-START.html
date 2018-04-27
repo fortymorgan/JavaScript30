@@ -11,19 +11,31 @@
   const context = canvas.getContext('2d');
 
   canvas.width = window.innerWidth;
-  canvas.heigth = window.innerHeight;
+  canvas.height = window.innerHeight;
 
   let isDrawing = false;
+
+  let lastX = 0;
+  let lastY = 0;
 
   canvas.addEventListener('mousemove', e => {
     if (!isDrawing) {
       return;
     }
+    
+    context.beginPath();
+    context.moveTo(lastX, lastY);
+    context.lineTo(e.offsetX, e.offsetY);
+    context.stroke();
 
-    console.log(e);
+    [lastX, lastY] = [e.offsetX, e.offsetY];
   });
 
-  canvas.addEventListener('mousedown', () => isDrawing = true);
+  canvas.addEventListener('mousedown', e => {
+    isDrawing = true;
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+  });
+
   canvas.addEventListener('mouseup', () => isDrawing = false);
   canvas.addEventListener('mouseout', () => isDrawing = false);
 </script>
