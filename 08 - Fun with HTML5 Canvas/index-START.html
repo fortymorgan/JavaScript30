@@ -24,6 +24,8 @@
 
   let hue = 0;
 
+  let direction = true;
+
   canvas.addEventListener('mousemove', e => {
     if (!isDrawing) {
       return;
@@ -39,6 +41,12 @@
     [lastX, lastY] = [e.offsetX, e.offsetY];
 
     hue += 1;
+
+    if (context.lineWidth >= 100 || context.lineWidth <= 1) {
+      direction = !direction;
+    }
+
+    direction ? context.lineWidth += 1 : context.lineWidth -= 1;
   });
 
   canvas.addEventListener('mousedown', e => {
