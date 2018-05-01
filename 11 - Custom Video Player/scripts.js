@@ -9,6 +9,8 @@ const controls = {
   progressFill: player.querySelector('.progress__filled'),
 };
 
+let mousedown = false;
+
 const videoPlayPause = () => {
   controls.video[controls.video.paused ? 'play' : 'pause']();
 };
@@ -35,6 +37,8 @@ const updateCurrentTime = event => {
   controls.video.currentTime = controls.video.duration * percentage;
 }
 
+const mouseFlagToggle = () => mousedown = !mousedown;
+
 controls.toggle.addEventListener('click', videoPlayPause);
 controls.video.addEventListener('click', videoPlayPause);
 
@@ -48,3 +52,8 @@ controls.sliders.forEach(slider => slider.addEventListener('input', rangeUpdate)
 controls.video.addEventListener('timeupdate', progressBarRender);
 
 controls.progressBar.addEventListener('click', updateCurrentTime);
+
+controls.progressBar.addEventListener('mousedown', mouseFlagToggle);
+controls.progressBar.addEventListener('mouseup', mouseFlagToggle);
+
+controls.progressBar.addEventListener('mousemove', event => mousedown && updateCurrentTime(event));
