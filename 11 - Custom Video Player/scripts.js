@@ -2,10 +2,11 @@ const player = document.querySelector('.player');
 
 const controls = {
   toggle: player.querySelector('.toggle'),
-  video: document.querySelector('.viewer'),
-  skipButtons: document.querySelectorAll('[data-skip]'),
-  sliders: document.querySelectorAll('.player__slider'),
-  progressBar: document.querySelector('.progress__filled')
+  video: player.querySelector('.viewer'),
+  skipButtons: player.querySelectorAll('[data-skip]'),
+  sliders: player.querySelectorAll('.player__slider'),
+  progressBar: player.querySelector('.progress'),
+  progressFill: player.querySelector('.progress__filled'),
 };
 
 const videoPlayPause = () => {
@@ -26,8 +27,13 @@ const rangeUpdate = event => {
 
 const progressBarRender = () => {
   const percentage = controls.video.currentTime / controls.video.duration * 100;
-  controls.progressBar.style['flex-basis'] = `${percentage}%`;
+  controls.progressFill.style['flex-basis'] = `${percentage}%`;
 };
+
+const updateCurrentTime = event => {
+  const percentage = event.offsetX / event.target.offsetWidth;
+  controls.video.currentTime = controls.video.duration * percentage;
+}
 
 controls.toggle.addEventListener('click', videoPlayPause);
 controls.video.addEventListener('click', videoPlayPause);
@@ -40,3 +46,5 @@ controls.skipButtons.forEach(button => button.addEventListener('click', skipTime
 controls.sliders.forEach(slider => slider.addEventListener('input', rangeUpdate));
 
 controls.video.addEventListener('timeupdate', progressBarRender);
+
+controls.progressBar.addEventListener('click', updateCurrentTime);
